@@ -34,21 +34,20 @@
     overflow-x: hidden;
   }
 
-  body::before {
+  body::before, body::after {
     content: '';
     position: fixed; inset: 0;
-    background-image:
-      linear-gradient(rgba(0,255,231,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,255,231,0.025) 1px, transparent 1px);
-    background-size: 40px 40px;
     pointer-events: none; z-index: 0;
   }
 
+  body::before {
+    background-image: linear-gradient(rgba(0,255,231,0.025) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0,255,231,0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
   body::after {
-    content: '';
-    position: fixed; inset: 0;
     background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px);
-    pointer-events: none; z-index: 0;
   }
 
   .container {
@@ -58,7 +57,7 @@
     display: flex; flex-direction: column; gap: 18px;
   }
 
-  /* ── Header ── */
+  /* Header */
   .header {
     display: flex; align-items: center; justify-content: space-between;
     padding-bottom: 12px; border-bottom: 1px solid var(--border);
@@ -77,7 +76,7 @@
   .conn-dot.error  { background: var(--off); box-shadow: 0 0 8px var(--off); }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.35} }
 
-  /* ── Relay card ── */
+  /* Relay card */
   .relay-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 12px; padding: 26px 24px;
@@ -87,12 +86,11 @@
   }
   .relay-card::before { content:''; position:absolute; top:8px; left:8px; width:16px; height:16px; border:1px solid var(--border); border-right:none; border-bottom:none; }
   .relay-card::after  { content:''; position:absolute; bottom:8px; right:8px; width:16px; height:16px; border:1px solid var(--border); border-left:none; border-top:none; }
-  .relay-card.active  { border-color: var(--on-glow); box-shadow: 0 0 40px var(--on-dim), inset 0 0 40px var(--on-dim); }
-  .relay-card.inactive{ border-color: var(--off-glow); box-shadow: 0 0 24px var(--off-dim), inset 0 0 24px var(--off-dim); }
+  .relay-card.active   { border-color: var(--on-glow); box-shadow: 0 0 40px var(--on-dim), inset 0 0 40px var(--on-dim); }
+  .relay-card.inactive { border-color: var(--off-glow); box-shadow: 0 0 24px var(--off-dim), inset 0 0 24px var(--off-dim); }
 
   .relay-label { font-family: var(--mono); font-size: 10px; color: var(--text-dim); letter-spacing: 3px; text-transform: uppercase; }
 
-  /* Power button */
   .power-btn {
     width: 144px; height: 144px; border-radius: 50%;
     border: none; background: var(--bg); cursor: pointer;
@@ -116,7 +114,6 @@
   .power-btn.on  .ico-l { stroke:var(--on);  filter:drop-shadow(0 0 6px var(--on)); }
   .power-btn.off .ico-l { stroke:var(--off); filter:drop-shadow(0 0 6px var(--off)); }
 
-  /* Status */
   .status-group { display:flex; flex-direction:column; align-items:center; gap:5px; width:100%; }
   .status-text  { font-family:var(--sans); font-weight:700; font-size:28px; letter-spacing:4px; text-transform:uppercase; color:var(--neutral); transition:all 0.4s; }
   .status-text.on  { color:var(--on);  text-shadow:0 0 20px var(--on); }
@@ -132,7 +129,6 @@
   }
   .uptime-badge.running { color:var(--on); border-color:var(--on-glow); }
 
-  /* Stats */
   .stats-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
   .stat-card {
     background:var(--surface); border:1px solid var(--border);
@@ -142,7 +138,6 @@
   .stat-value { font-family:var(--mono); font-size:18px; font-weight:bold; color:#fff; }
   .stat-label { font-family:var(--mono); font-size:9px; color:var(--text-dim); letter-spacing:1.5px; text-transform:uppercase; text-align:center; }
 
-  /* Log */
   .log-card { background:var(--surface); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
   .log-header { padding:10px 14px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
   .log-title { font-family:var(--mono); font-size:10px; color:var(--text-dim); letter-spacing:2px; text-transform:uppercase; }
@@ -159,7 +154,6 @@
   .log-msg  { font-family:var(--mono); font-size:11px; color:var(--text); flex:1; }
   .log-time { font-family:var(--mono); font-size:10px; color:var(--text-dim); white-space:nowrap; }
 
-  /* Toast */
   .toast {
     position:fixed; bottom:24px; left:50%;
     transform:translateX(-50%) translateY(80px);
@@ -214,9 +208,9 @@
   </div>
 
   <div class="stats-row">
-    <div class="stat-card"><div class="stat-value" id="statOn">0</div><div class="stat-label">Включений</div></div>
-    <div class="stat-card"><div class="stat-value" id="statOff">0</div><div class="stat-label">Выключений</div></div>
-    <div class="stat-card"><div class="stat-value" id="statTotal">0m</div><div class="stat-label">Время ON</div></div>
+    <div class="stat-card"><div class="stat-value" id="statOn">0</div><div class="stat-label">ВКЛЮЧЕНИЙ</div></div>
+    <div class="stat-card"><div class="stat-value" id="statOff">0</div><div class="stat-label">ВЫКЛЮЧЕНИЙ</div></div>
+    <div class="stat-card"><div class="stat-value" id="statTotal">0m</div><div class="stat-label">ВРЕМЯ ON</div></div>
   </div>
 
   <div class="log-card">
@@ -233,22 +227,25 @@
     </div>
   </div>
 
-  <div class="footer">ESP32-C3 // RAILWAY PROXY // CLAUDE BUILD</div>
+  <div class="footer">ESP32-C3 // RAILWAY PROXY // UPDATED</div>
 </div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 // ════════════════════════════════════════════════════
-//  ЗАМЕНИ НА СВОИ ЗНАЧЕНИЯ ПОСЛЕ ДЕПЛОЯ НА RAILWAY
+//  ОБЯЗАТЕЛЬНО ЗАМЕНИ НА СВОИ ЗНАЧЕНИЯ
 // ════════════════════════════════════════════════════
-const SERVER_URL  = 'https://esp32c3switch-production.up.railway.app'; // URL из Railway
-const BOT_SECRET  = 'my-token-es-mel-32-clone';               // тот же что в server.js
+const SERVER_URL  = 'https://esp32c3switch-production.up.railway.app';   // ←←← Полный URL из Railway
+const BOT_SECRET  = 'my-token-es-mel-32-clone';             // должен совпадать с AUTH_TOKEN
 // ════════════════════════════════════════════════════
 
-// Telegram WebApp
-if (window.Telegram?.WebApp) { Telegram.WebApp.ready(); Telegram.WebApp.expand(); }
+if (window.Telegram?.WebApp) {
+  Telegram.WebApp.ready();
+  Telegram.WebApp.expand();
+}
 
-// ── Audio ─────────────────────────────────────────
+// ── Audio effects ─────────────────────────────────────
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 let actx;
 function ea() { if (!actx) actx = new AudioCtx(); }
@@ -269,18 +266,26 @@ const soundOff   = () => { tone(440,'sawtooth',0.06,0.1); setTimeout(()=>tone(33
 const soundClick = () => tone(800,'square',0.05,0.06);
 const soundError = () => tone(200,'sawtooth',0.3,0.18);
 
-// ── State ─────────────────────────────────────────
-let relayState=null, isConnected=false;
-let uptimeStart=null, uptimeInterval=null;
-let statsOn=0, statsOff=0, totalOnMs=0;
-let pollInterval=null;
+// ── State ─────────────────────────────────────────────
+let relayState = null;
+let isConnected = false;
+let uptimeStart = null;
+let uptimeInterval = null;
+let statsOn = 0, statsOff = 0, totalOnMs = 0;
+let pollInterval = null;
 
-const ts  = d => d.toTimeString().slice(0,8);
-const fmt = ms => { const s=Math.floor(ms/1000),h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60; return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`; };
+const ts = d => d.toTimeString().slice(0,8);
+const fmt = ms => {
+  const s = Math.floor(ms/1000);
+  const h = Math.floor(s/3600);
+  const m = Math.floor((s%3600)/60);
+  const sec = s%60;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+};
 
 document.getElementById('startTime').textContent = ts(new Date());
 
-// ── Log ───────────────────────────────────────────
+// ── Log & Toast ───────────────────────────────────────
 function addLog(msg, type='info') {
   const list = document.getElementById('logList');
   const el = document.createElement('div');
@@ -289,96 +294,158 @@ function addLog(msg, type='info') {
   list.insertBefore(el, list.firstChild);
   if (list.children.length > 30) list.removeChild(list.lastChild);
 }
-function clearLog() { soundClick(); document.getElementById('logList').innerHTML=''; addLog('Лог очищен'); }
 
-// ── Toast ─────────────────────────────────────────
-let toastT;
-function showToast(msg, type='') {
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.className=`toast show ${type}`;
-  clearTimeout(toastT); toastT=setTimeout(()=>t.className='toast',2500);
+function clearLog() {
+  soundClick();
+  document.getElementById('logList').innerHTML = '';
+  addLog('Лог очищен');
 }
 
-// ── UI ────────────────────────────────────────────
+let toastT;
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast show ${type}`;
+  clearTimeout(toastT);
+  toastT = setTimeout(() => t.className = 'toast', 2500);
+}
+
+// ── UI Update ─────────────────────────────────────────
 function updateUI(state) {
-  const btn=document.getElementById('powerBtn');
-  const st=document.getElementById('statusText');
-  const sb=document.getElementById('statusSub');
-  const card=document.getElementById('relayCard');
-  const up=document.getElementById('uptimeBadge');
+  const btn = document.getElementById('powerBtn');
+  const st  = document.getElementById('statusText');
+  const sb  = document.getElementById('statusSub');
+  const card = document.getElementById('relayCard');
+  const up  = document.getElementById('uptimeBadge');
 
-  btn.className='power-btn'; st.className='status-text'; card.className='relay-card';
+  btn.className = 'power-btn';
+  st.className = 'status-text';
+  card.className = 'relay-card';
 
-  if (state===true) {
-    btn.classList.add('on'); st.classList.add('on'); card.classList.add('active'); up.classList.add('running');
-    st.textContent='ACTIVE'; sb.textContent='Реле замкнуто — цепь активна';
-    if (!uptimeStart) uptimeStart=Date.now();
-    if (!uptimeInterval) uptimeInterval=setInterval(()=>{
-      document.getElementById('uptimeVal').textContent=fmt(Date.now()-uptimeStart);
-      totalOnMs+=1000;
-      const m=Math.floor(totalOnMs/60000);
-      document.getElementById('statTotal').textContent=m<60?`${m}m`:`${Math.floor(m/60)}h`;
-    },1000);
-  } else if (state===false) {
-    btn.classList.add('off'); st.classList.add('off'); card.classList.add('inactive'); up.classList.remove('running');
-    st.textContent='INACTIVE'; sb.textContent='Реле разомкнуто — цепь отключена';
-    if (uptimeInterval){clearInterval(uptimeInterval);uptimeInterval=null;}
-    uptimeStart=null; document.getElementById('uptimeVal').textContent='00:00:00';
+  if (state === true) {
+    btn.classList.add('on');
+    st.classList.add('on');
+    card.classList.add('active');
+    up.classList.add('running');
+    st.textContent = 'ACTIVE';
+    sb.textContent = 'Реле включено — цепь активна';
+    if (!uptimeStart) uptimeStart = Date.now();
+    if (!uptimeInterval) {
+      uptimeInterval = setInterval(() => {
+        document.getElementById('uptimeVal').textContent = fmt(Date.now() - uptimeStart);
+        totalOnMs += 1000;
+        const m = Math.floor(totalOnMs / 60000);
+        document.getElementById('statTotal').textContent = m < 60 ? `${m}m` : `${Math.floor(m/60)}h`;
+      }, 1000);
+    }
+  } else if (state === false) {
+    btn.classList.add('off');
+    st.classList.add('off');
+    card.classList.add('inactive');
+    up.classList.remove('running');
+    st.textContent = 'INACTIVE';
+    sb.textContent = 'Реле выключено — цепь отключена';
+    if (uptimeInterval) { clearInterval(uptimeInterval); uptimeInterval = null; }
+    uptimeStart = null;
+    document.getElementById('uptimeVal').textContent = '00:00:00';
   } else {
-    st.textContent='UNKNOWN'; sb.textContent='Нет связи с устройством';
+    st.textContent = 'UNKNOWN';
+    sb.textContent = 'Нет связи с устройством';
   }
 }
 
 function setConn(online) {
-  isConnected=online;
-  document.getElementById('connDot').className=`conn-dot ${online?'online':'error'}`;
-  document.getElementById('connText').textContent=online?'ONLINE':'OFFLINE';
+  isConnected = online;
+  document.getElementById('connDot').className = `conn-dot ${online ? 'online' : 'error'}`;
+  document.getElementById('connText').textContent = online ? 'ONLINE' : 'OFFLINE';
 }
 
-// ── API (через Railway proxy) ─────────────────────
-const headers = () => ({ 'X-Bot-Secret': BOT_SECRET });
+// ── API Calls ─────────────────────────────────────────
+const headers = () => ({
+  'X-Bot-Secret': BOT_SECRET,
+  'Content-Type': 'application/json'
+});
 
 async function fetchStatus() {
   try {
-    const res  = await fetch(`${SERVER_URL}/api/status`, { headers: headers(), signal: AbortSignal.timeout(4000) });
+    const res = await fetch(`${SERVER_URL}/api/status`, {
+      headers: headers(),
+      signal: AbortSignal.timeout(5000)
+    });
+
+    if (!res.ok) throw new Error('Server error');
+
     const data = await res.json();
-    const state = data.relay===1;
-    if (state!==relayState) { relayState=state; updateUI(state); }
-    if (!isConnected) { setConn(true); addLog('Соединение восстановлено','info'); }
-  } catch(e) {
-    if (isConnected) { setConn(false); updateUI(null); addLog('Соединение потеряно','off'); }
+    const newState = data.relay === 1;
+
+    if (newState !== relayState) {
+      relayState = newState;
+      updateUI(newState);
+    }
+
+    if (!isConnected) {
+      setConn(true);
+      addLog('Соединение восстановлено', 'info');
+    }
+  } catch (e) {
+    if (isConnected) {
+      setConn(false);
+      updateUI(null);
+      addLog('Соединение потеряно', 'off');
+    }
   }
 }
 
 async function toggleRelay() {
-  ea();
-  const btn=document.getElementById('powerBtn');
+  soundClick();
+  const btn = document.getElementById('powerBtn');
   btn.classList.add('loading');
+
   try {
-    const res  = await fetch(`${SERVER_URL}/api/toggle`, { headers: headers(), signal: AbortSignal.timeout(5000) });
+    const res = await fetch(`${SERVER_URL}/api/command`, {
+      method: 'POST',
+      headers: headers(),
+      body: JSON.stringify({ state: relayState === 1 ? 0 : 1 }),  // переключаем
+      signal: AbortSignal.timeout(6000)
+    });
+
     const data = await res.json();
     if (data.error) throw new Error(data.error);
-    const newState = data.relay===1;
-    relayState=newState; updateUI(newState);
+
+    const newState = data.relay === 1;
+    relayState = newState;
+    updateUI(newState);
+
     if (newState) {
-      statsOn++; document.getElementById('statOn').textContent=statsOn;
-      soundOn(); addLog('Реле включено','on'); showToast('⚡ Реле включено','success');
+      statsOn++;
+      document.getElementById('statOn').textContent = statsOn;
+      soundOn();
+      addLog('Реле включено', 'on');
+      showToast('⚡ Реле включено', 'success');
     } else {
-      statsOff++; document.getElementById('statOff').textContent=statsOff;
-      soundOff(); addLog('Реле выключено','off'); showToast('○ Реле выключено','');
+      statsOff++;
+      document.getElementById('statOff').textContent = statsOff;
+      soundOff();
+      addLog('Реле выключено', 'off');
+      showToast('○ Реле выключено', '');
     }
-  } catch(e) {
-    soundError(); addLog(`Ошибка: ${e.message}`,'off'); showToast('✗ Команда не доставлена','error');
+  } catch (e) {
+    soundError();
+    addLog(`Ошибка команды: ${e.message}`, 'off');
+    showToast('✗ Команда не доставлена', 'error');
   } finally {
     btn.classList.remove('loading');
   }
 }
 
-// ── Init ──────────────────────────────────────────
-addLog('Подключение к серверу...','info');
-fetchStatus().then(()=>{
-  if (isConnected) addLog(`Статус получен: ${relayState?'ON':'OFF'}`, relayState?'on':'off');
-  pollInterval = setInterval(fetchStatus, 4000);
+// ── Initialization ────────────────────────────────────
+addLog('Запуск приложения...', 'info');
+
+fetchStatus().then(() => {
+  if (isConnected) {
+    addLog(`Начальный статус: ${relayState ? 'ON' : 'OFF'}`, relayState ? 'on' : 'off');
+  }
+  pollInterval = setInterval(fetchStatus, 4000);   // опрос каждые 4 секунды
 });
 </script>
 </body>
